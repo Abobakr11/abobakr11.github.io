@@ -2,45 +2,43 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>جدول الأسبوع - وقتي</title>
+  <title>جدول الأسبوع</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
+      font-family: 'Cairo', sans-serif;
       color: white;
-      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      min-height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 2rem;
-      text-align: center;
+      border-radius: 15px;
+      max-width: 900px;
+      margin: auto;
     }
 
-    .logo {
-      width: 100px;
-      border-radius: 10px;
-      margin-bottom: 20px;
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     table {
       width: 100%;
-      max-width: 700px;
-      margin: auto;
       border-collapse: collapse;
-      background-color: rgba(255,255,255,0.95);
+      background-color: rgba(255, 255, 255, 0.95);
       color: #000;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
     }
 
     th, td {
-      padding: 15px;
-      border: 1px solid #ddd;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      text-align: center;
     }
 
     th {
@@ -48,41 +46,87 @@
       color: white;
     }
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    td[contenteditable="true"] {
+      background-color: #f7f7f7;
+      cursor: text;
     }
 
-    a.btn {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #00bbf9;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
+    .back-link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .back-link a {
+      color: #00bbf9;
       font-weight: bold;
+      text-decoration: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo" />
     <h1>جدول الأسبوع</h1>
-    <table>
-      <tr>
-        <th>اليوم</th>
-        <th>المهام</th>
-      </tr>
-      <tr><td>السبت</td><td>...</td></tr>
-      <tr><td>الأحد</td><td>...</td></tr>
-      <tr><td>الاثنين</td><td>...</td></tr>
-      <tr><td>الثلاثاء</td><td>...</td></tr>
-      <tr><td>الأربعاء</td><td>...</td></tr>
-      <tr><td>الخميس</td><td>...</td></tr>
-      <tr><td>الجمعة</td><td>راحة</td></tr>
+    <table id="week-table">
+      <thead>
+        <tr>
+          <th>اليوم</th>
+          <th>الصباح</th>
+          <th>الظهيرة</th>
+          <th>المساء</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>السبت</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الأحد</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الاثنين</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الثلاثاء</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الأربعاء</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الخميس</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td>الجمعة</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      </tbody>
     </table>
 
-    <a href="index.html" class="btn">العودة للرئيسية</a>
+    <div class="back-link">
+      <a href="index.html">⬅ العودة للصفحة الرئيسية</a>
+    </div>
   </div>
+
+  <script>
+    const table = document.getElementById("week-table");
+
+    // استرجاع البيانات عند تحميل الصفحة
+    window.onload = function () {
+      const saved = JSON.parse(localStorage.getItem("weekData")) || [];
+      const rows = table.querySelectorAll("tbody tr");
+
+      saved.forEach((rowData, i) => {
+        const cells = rows[i].querySelectorAll("td");
+        rowData.forEach((text, j) => {
+          if (j > 0) cells[j].innerText = text; // تجاهل اسم اليوم
+        });
+      });
+    };
+
+    // حفظ البيانات عند أي تغيير
+    table.addEventListener("input", () => {
+      const data = [];
+      const rows = table.querySelectorAll("tbody tr");
+
+      rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        const rowData = [];
+        cells.forEach((cell) => {
+          rowData.push(cell.innerText.trim());
+        });
+        data.push(rowData);
+      });
+
+      localStorage.setItem("weekData", JSON.stringify(data));
+    });
+  </script>
 </body>
 </html>
