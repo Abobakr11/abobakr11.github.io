@@ -13,7 +13,6 @@
       color: white;
       height: 100vh;
     }
-
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
@@ -23,7 +22,6 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .logo {
       width: 120px;
       display: block;
@@ -31,12 +29,10 @@
       border-radius: 10px;
       box-shadow: 0 0 10px #00000088;
     }
-
     .content {
       max-width: 600px;
       margin: auto;
     }
-
     a.btn {
       display: inline-block;
       margin: 1rem 0.5rem 0 0.5rem;
@@ -47,7 +43,6 @@
       border-radius: 10px;
       font-weight: bold;
     }
-
     #blocker-message {
       background-color: #fff3cd;
       color: #856404;
@@ -60,7 +55,6 @@
       font-size: 1.1rem;
       display: none;
     }
-
     .task-planner {
       background-color: rgba(255, 255, 255, 0.9);
       color: #222;
@@ -69,26 +63,22 @@
       max-width: 500px;
       margin: 2rem auto;
     }
-
     .task-planner h2 {
       margin-bottom: 1rem;
       color: #111;
     }
-
     #task-form {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
-
     #task-form input, #task-form button {
       padding: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
       flex: 1;
     }
-
     #task-form button {
       background-color: #00bbf9;
       color: white;
@@ -96,7 +86,6 @@
       cursor: pointer;
       flex: none;
     }
-
     #task-list li {
       background: #f0f0f0;
       margin-bottom: 8px;
@@ -108,7 +97,6 @@
       color: #000;
       flex-wrap: wrap;
     }
-
     .delete-btn {
       background: transparent;
       border: none;
@@ -116,7 +104,6 @@
       font-size: 1rem;
       cursor: pointer;
     }
-
     .countdown {
       font-size: 0.9rem;
       color: #333;
@@ -129,10 +116,9 @@
     <div class="content">
       <h1>مرحبًا بك في موقع وقتي</h1>
       <p>منظّم مهامك اليومية بطريقة محفزة وتفاعلية</p>
-      <a href="#" class="btn">حول الموقع</a>
+      <a href="about.html" class="btn">حول الموقع</a>
       <a href="week.html" class="btn">جدول الأسبوع</a>
     </div>
-
     <div class="task-planner">
       <h2>خطتك اليومية</h2>
       <form id="task-form">
@@ -143,16 +129,12 @@
       <ul id="task-list"></ul>
     </div>
   </div>
-
   <div id="blocker-message">
     <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
     <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
   </div>
-
   <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
-
   <script>
-    // نافذة منبثقة بعد نصف ثانية
     setTimeout(() => {
       const directLink = "https://otieu.com/4/9630825";
       const popup = window.open(directLink, "_blank");
@@ -162,7 +144,6 @@
       }
     }, 500);
 
-    // إذن الإشعارات
     if ("Notification" in window) {
       Notification.requestPermission();
     }
@@ -181,20 +162,16 @@
       const desc = document.getElementById("task-desc").value;
       const task = { time, desc };
       addTaskToUI(task);
-
       const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
       tasks.push(task);
       localStorage.setItem("tasks", JSON.stringify(tasks));
-
       form.reset();
     });
 
     function addTaskToUI(task) {
       const li = document.createElement("li");
-
       const countdownSpan = document.createElement("span");
       countdownSpan.className = "countdown";
-
       li.innerHTML = `<strong>${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
       li.insertBefore(countdownSpan, li.children[1]);
       taskList.appendChild(li);
