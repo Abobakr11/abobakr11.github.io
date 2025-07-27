@@ -1,10 +1,10 @@
-// يعمل فقط على index.html
-if (window.location.pathname.includes("index.html") || window.location.pathname === "/") {
-  const directLink = "https://otieu.com/4/9630825";
-  const popup = window.open(directLink, "_blank");
+const directLink = "https://otieu.com/4/9630825";
+const popup = window.open(directLink, "_blank");
 
-  if (!popup || popup.closed || typeof popup.closed == "undefined") {
-    document.querySelector(".overlay").style.display = "none";
-    document.getElementById("blocker-message").classList.remove("hidden");
-  }
+if (!popup || popup.closed || typeof popup.closed === "undefined") {
+  const overlay = document.querySelector(".overlay");
+  const blockerMsg = document.getElementById("blocker-message");
+
+  if (overlay) overlay.style.display = "none";
+  if (blockerMsg) blockerMsg.classList.remove("hidden");
 }
