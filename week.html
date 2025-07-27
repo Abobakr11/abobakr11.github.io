@@ -2,191 +2,87 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>جدول الأسبوع</title>
+  <title>جدول الأسبوع - وقتي</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
+      min-height: 100vh;
     }
 
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
       padding: 2rem;
+      text-align: center;
     }
 
     .logo {
       width: 100px;
-      display: block;
-      margin: 0 auto 1rem;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
+    table {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: rgba(255,255,255,0.95);
+      color: #000;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .week-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
+    th, td {
+      padding: 15px;
+      border: 1px solid #ddd;
     }
 
-    .day {
-      background: rgba(255, 255, 255, 0.9);
-      color: #222;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-
-    .day h2 {
-      text-align: center;
-    }
-
-    .task-form {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 1rem;
-    }
-
-    .task-form input, .task-form button {
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    .task-form button {
+    th {
       background-color: #00bbf9;
       color: white;
-      border: none;
-      cursor: pointer;
     }
 
-    .tasks li {
-      background: #f0f0f0;
-      margin-bottom: 5px;
-      padding: 5px;
-      border-radius: 5px;
-      color: #000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
 
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: red;
-      cursor: pointer;
-    }
-
-    a.back-btn {
-      display: block;
-      text-align: center;
-      margin: 2rem auto;
-      padding: 0.75rem;
+    a.btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
       background-color: #00bbf9;
       color: white;
       text-decoration: none;
       border-radius: 10px;
-      max-width: 200px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" class="logo" alt="Logo" />
-    <h1>📅 جدول المهام الأسبوعي</h1>
+    <img src="logo2.jpg" alt="Logo" class="logo" />
+    <h1>جدول الأسبوع</h1>
+    <table>
+      <tr>
+        <th>اليوم</th>
+        <th>المهام</th>
+      </tr>
+      <tr><td>السبت</td><td>...</td></tr>
+      <tr><td>الأحد</td><td>...</td></tr>
+      <tr><td>الاثنين</td><td>...</td></tr>
+      <tr><td>الثلاثاء</td><td>...</td></tr>
+      <tr><td>الأربعاء</td><td>...</td></tr>
+      <tr><td>الخميس</td><td>...</td></tr>
+      <tr><td>الجمعة</td><td>راحة</td></tr>
+    </table>
 
-    <div class="week-container" id="week-container"></div>
-
-    <a href="index.html" class="back-btn">⬅ العودة للصفحة الرئيسية</a>
+    <a href="index.html" class="btn">العودة للرئيسية</a>
   </div>
-
-  <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
-
-  <script>
-    const days = ["السبت", "الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة"];
-    const weekContainer = document.getElementById("week-container");
-
-    days.forEach(day => {
-      const dayDiv = document.createElement("div");
-      dayDiv.className = "day";
-      dayDiv.innerHTML = `
-        <h2>${day}</h2>
-        <form class="task-form">
-          <input type="time" required />
-          <input type="text" placeholder="اكتب المهمة..." required />
-          <button type="submit">+</button>
-        </form>
-        <ul class="tasks" id="tasks-${day}"></ul>
-      `;
-      weekContainer.appendChild(dayDiv);
-    });
-
-    document.querySelectorAll(".task-form").forEach((form, index) => {
-      const day = days[index];
-      const taskList = document.getElementById(`tasks-${day}`);
-      const storageKey = `tasks-${day}`;
-
-      // تحميل المهام
-      const saved = JSON.parse(localStorage.getItem(storageKey)) || [];
-      saved.forEach(task => addTaskToUI(task));
-
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        const time = form.children[0].value;
-        const desc = form.children[1].value;
-        const task = { time, desc };
-        addTaskToUI(task);
-
-        const tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
-        tasks.push(task);
-        localStorage.setItem(storageKey, JSON.stringify(tasks));
-
-        form.reset();
-      });
-
-      function addTaskToUI(task) {
-        const li = document.createElement("li");
-        li.innerHTML = `<span><strong>${task.time}</strong> - ${task.desc}</span> <button class="delete-btn">❌</button>`;
-        taskList.appendChild(li);
-
-        li.querySelector(".delete-btn").onclick = () => {
-          li.remove();
-          let tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
-          tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc));
-          localStorage.setItem(storageKey, JSON.stringify(tasks));
-        };
-
-        // تشغيل عد تنازلي
-        const interval = setInterval(() => {
-          const now = new Date();
-          const [h, m] = task.time.split(":").map(Number);
-          const taskTime = new Date();
-          taskTime.setHours(h, m, 0, 0);
-          const diff = taskTime - now;
-
-          if (diff <= 0) {
-            document.getElementById("alarm-sound").play();
-            clearInterval(interval);
-            showNotification("📢 تذكير!", `الآن: ${task.desc} (${day})`);
-          }
-        }, 1000);
-      }
-    });
-
-    function showNotification(title, body) {
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(title, { body });
-      } else {
-        Notification.requestPermission();
-      }
-    }
-  </script>
 </body>
 </html>
