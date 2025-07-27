@@ -66,7 +66,7 @@
       color: #222;
       padding: 20px;
       border-radius: 12px;
-      max-width: 600px;
+      max-width: 500px;
       margin: 2rem auto;
     }
 
@@ -139,14 +139,14 @@
       <h2>خطتك اليومية</h2>
       <form id="task-form">
         <select id="task-day" required>
-          <option value="" disabled selected>اختر اليوم</option>
-          <option value="السبت">السبت</option>
-          <option value="الأحد">الأحد</option>
-          <option value="الاثنين">الاثنين</option>
-          <option value="الثلاثاء">الثلاثاء</option>
-          <option value="الأربعاء">الأربعاء</option>
-          <option value="الخميس">الخميس</option>
-          <option value="الجمعة">الجمعة</option>
+          <option disabled selected>اختر اليوم</option>
+          <option>السبت</option>
+          <option>الأحد</option>
+          <option>الاثنين</option>
+          <option>الثلاثاء</option>
+          <option>الأربعاء</option>
+          <option>الخميس</option>
+          <option>الجمعة</option>
         </select>
         <input type="time" id="task-time" required />
         <input type="text" id="task-desc" placeholder="اكتب المهمة..." required />
@@ -173,9 +173,7 @@
       }
     }, 500);
 
-    if ("Notification" in window) {
-      Notification.requestPermission();
-    }
+    if ("Notification" in window) Notification.requestPermission();
 
     const form = document.getElementById("task-form");
     const taskList = document.getElementById("task-list");
@@ -202,23 +200,22 @@
 
     function addTaskToUI(task) {
       const li = document.createElement("li");
-
       const countdownSpan = document.createElement("span");
       countdownSpan.className = "countdown";
 
-      li.innerHTML = `<strong>${task.day} - ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
+      li.innerHTML = `<strong>${task.day} ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
       li.insertBefore(countdownSpan, li.children[1]);
       taskList.appendChild(li);
 
       li.querySelector(".delete-btn").onclick = () => {
         li.remove();
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks = tasks.filter(t => !(t.day === task.day && t.time === task.time && t.desc === task.desc));
+        tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc && t.day === task.day));
         localStorage.setItem("tasks", JSON.stringify(tasks));
       };
 
       const interval = setInterval(() => {
-        const remaining = getTimeDiff(task.day, task.time);
+        const remaining = getTimeDiff(task.time, task.day);
         if (remaining <= 0) {
           countdownSpan.innerText = "⌛ وقت المهمة الآن!";
           clearInterval(interval);
@@ -230,20 +227,13 @@
       }, 1000);
     }
 
-    function getTimeDiff(taskDay, taskTime) {
+    function getTimeDiff(taskTime, taskDay) {
       const [h, m] = taskTime.split(":").map(Number);
       const now = new Date();
       const taskDate = new Date();
-
-      const days = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
-      const nowDayIndex = now.getDay();
-      const taskDayIndex = days.indexOf(taskDay);
-      let diffDays = taskDayIndex - nowDayIndex;
-      if (diffDays < 0) diffDays += 7;
-
-      taskDate.setDate(now.getDate() + diffDays);
+      const dayIndex = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"].indexOf(taskDay);
+      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - taskDate.getDay()) % 7));
       taskDate.setHours(h, m, 0, 0);
-
       return Math.floor((taskDate - now) / 1000);
     }
 
