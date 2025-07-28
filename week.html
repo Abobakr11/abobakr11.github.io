@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>جدول الأسبوع</title>
+  <meta charset="UTF-8">
+  <title>جدول الأسبوع - وقتي</title>
   <style>
     body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Cairo', sans-serif;
       color: white;
-      margin: 0;
-      padding: 2rem;
     }
 
-    .container {
+    .overlay {
       background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
       padding: 2rem;
-      border-radius: 12px;
-      max-width: 750px;
-      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     table {
       width: 100%;
+      max-width: 800px;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.95);
-      color: #111;
-      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #222;
+      border-radius: 12px;
       overflow: hidden;
     }
 
     th, td {
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
-      text-align: right;
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: center;
     }
 
     th {
@@ -43,55 +50,35 @@
 
     td[contenteditable="true"] {
       background-color: #f9f9f9;
-    }
-
-    td.readonly {
-      background-color: #eee;
-      color: gray;
-    }
-
-    .actions {
-      text-align: center;
-      margin-top: 1.5rem;
+      cursor: text;
     }
 
     .btn {
+      margin-top: 2rem;
       background-color: #00bbf9;
-      padding: 0.7rem 1.4rem;
       color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 10px;
       text-decoration: none;
-      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      margin: 0 5px;
-      border: none;
     }
 
-    select {
-      padding: 0.5rem 1rem;
+    .logo {
+      width: 100px;
+      border-radius: 8px;
       margin-bottom: 1rem;
-      border-radius: 6px;
-      font-size: 1rem;
+      box-shadow: 0 0 10px #00000088;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 style="text-align: center;">جدول الأسبوع</h1>
+  <div class="overlay">
+    <img src="logo2.jpg" alt="شعار الموقع" class="logo" />
+    <h1>جدول الأسبوع</h1>
 
-    <label for="rest-day">اختر يوم الراحة:</label>
-    <select id="rest-day">
-      <option value="">-- لا يوجد يوم راحة محدد --</option>
-      <option value="السبت">السبت</option>
-      <option value="الأحد">الأحد</option>
-      <option value="الاثنين">الاثنين</option>
-      <option value="الثلاثاء">الثلاثاء</option>
-      <option value="الأربعاء">الأربعاء</option>
-      <option value="الخميس">الخميس</option>
-      <option value="الجمعة">الجمعة</option>
-    </select>
-
-    <table id="week-table">
+    <table>
       <thead>
         <tr>
           <th>اليوم</th>
@@ -109,64 +96,28 @@
       </tbody>
     </table>
 
-    <div class="actions">
-      <button class="btn" onclick="clearWeek()">مسح الجدول</button>
-      <a href="index.html" class="btn">العودة للرئيسية</a>
-    </div>
+    <button class="btn" onclick="clearWeek()">مسح الجدول</button>
+    <a href="index.html" class="btn">العودة للرئيسية</a>
   </div>
 
   <script>
-    const restDaySelect = document.getElementById("rest-day");
-
     window.onload = () => {
-      const savedTasks = JSON.parse(localStorage.getItem("weekData")) || {};
-      const savedRestDay = localStorage.getItem("restDay");
-
-      // إعادة تحميل المهام
       document.querySelectorAll("td[contenteditable='true']").forEach(td => {
         const day = td.dataset.day;
-        if (savedTasks[day]) td.innerText = savedTasks[day];
+        const saved = JSON.parse(localStorage.getItem("weekData")) || {};
+        if (saved[day]) td.innerText = saved[day];
 
         td.addEventListener("input", () => {
-          savedTasks[day] = td.innerText;
-          localStorage.setItem("weekData", JSON.stringify(savedTasks));
+          const updated = JSON.parse(localStorage.getItem("weekData")) || {};
+          updated[day] = td.innerText;
+          localStorage.setItem("weekData", JSON.stringify(updated));
         });
-      });
-
-      // تحميل يوم الراحة
-      if (savedRestDay) {
-        restDaySelect.value = savedRestDay;
-        setRestDay(savedRestDay);
-      }
-
-      restDaySelect.addEventListener("change", () => {
-        const selectedDay = restDaySelect.value;
-        localStorage.setItem("restDay", selectedDay);
-        setRestDay(selectedDay);
       });
     };
 
-    function setRestDay(day) {
-      document.querySelectorAll("td[data-day]").forEach(td => {
-        const currentDay = td.dataset.day;
-        if (currentDay === day) {
-          td.classList.add("readonly");
-          td.innerText = "راحة 💤";
-          td.setAttribute("contenteditable", "false");
-        } else {
-          if (td.classList.contains("readonly")) {
-            td.classList.remove("readonly");
-            td.innerText = "";
-            td.setAttribute("contenteditable", "true");
-          }
-        }
-      });
-    }
-
     function clearWeek() {
-      if (confirm("هل تريد مسح جميع المهام ويوم الراحة؟")) {
+      if (confirm("هل أنت متأكد من مسح كل المهام؟")) {
         localStorage.removeItem("weekData");
-        localStorage.removeItem("restDay");
         location.reload();
       }
     }
