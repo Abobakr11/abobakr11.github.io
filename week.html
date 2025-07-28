@@ -24,7 +24,13 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .saving {
+      color: yellow;
+      font-weight: bold;
+      margin-bottom: 1rem;
     }
 
     table {
@@ -54,7 +60,7 @@
     }
 
     .btn {
-      margin-top: 2rem;
+      margin-top: 1rem;
       background-color: #00bbf9;
       color: white;
       padding: 0.7rem 1.5rem;
@@ -69,7 +75,6 @@
       width: 100px;
       border-radius: 8px;
       margin-bottom: 1rem;
-      box-shadow: 0 0 10px #00000088;
     }
   </style>
 </head>
@@ -77,13 +82,11 @@
   <div class="overlay">
     <img src="logo2.jpg" alt="شعار الموقع" class="logo" />
     <h1>جدول الأسبوع</h1>
+    <div class="saving" id="saving-msg" style="display:none;">📌 يتم الحفظ...</div>
 
     <table>
       <thead>
-        <tr>
-          <th>اليوم</th>
-          <th>المهام</th>
-        </tr>
+        <tr><th>اليوم</th><th>المهام</th></tr>
       </thead>
       <tbody>
         <tr><td>السبت</td><td contenteditable="true" data-day="السبت"></td></tr>
@@ -97,10 +100,20 @@
     </table>
 
     <button class="btn" onclick="clearWeek()">مسح الجدول</button>
-    <a href="index.html" class="btn">العودة للرئيسية</a>
+    <a href="#" onclick="checkSavedBeforeLeave()" class="btn">العودة للرئيسية</a>
   </div>
 
   <script>
+    let weekData = {};
+
+    function checkSavedBeforeLeave() {
+      if (Object.keys(weekData).length === 0) {
+        alert("يرجى كتابة مهام وحفظها أولاً.");
+        return;
+      }
+      location.href = "index.html";
+    }
+
     window.onload = () => {
       document.querySelectorAll("td[contenteditable='true']").forEach(td => {
         const day = td.dataset.day;
@@ -108,9 +121,12 @@
         if (saved[day]) td.innerText = saved[day];
 
         td.addEventListener("input", () => {
-          const updated = JSON.parse(localStorage.getItem("weekData")) || {};
-          updated[day] = td.innerText;
-          localStorage.setItem("weekData", JSON.stringify(updated));
+          document.getElementById("saving-msg").style.display = "block";
+          setTimeout(() => {
+            weekData[day] = td.innerText;
+            localStorage.setItem("weekData", JSON.stringify(weekData));
+            document.getElementById("saving-msg").style.display = "none";
+          }, 1000);
         });
       });
     };
