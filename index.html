@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>منظّم وقتي</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
       margin: 0;
@@ -165,7 +165,7 @@
   <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
 
   <script>
-    // فتح الرابط بعد نصف ثانية
+    // إعلان منبثق
     setTimeout(() => {
       const directLink = "https://otieu.com/4/9630825";
       const popup = window.open(directLink, "_blank");
@@ -175,10 +175,8 @@
       }
     }, 500);
 
-    // طلب إذن الإشعارات
     if ("Notification" in window) Notification.requestPermission();
 
-    // تحميل المهام عند فتح الصفحة
     const form = document.getElementById("task-form");
     const taskList = document.getElementById("task-list");
 
