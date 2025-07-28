@@ -3,213 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <title>منظّم وقتي</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
+      font-family: 'Cairo', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
-      height: 100vh;
     }
-
     .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      padding: 2rem;
     }
-
     .logo {
-      width: 120px;
-      display: block;
-      margin: 20px auto;
-      border-radius: 10px;
+      width: 100px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
       box-shadow: 0 0 10px #00000088;
     }
-
-    .content {
-      max-width: 600px;
-      margin: auto;
+    h1 {
+      margin: 1rem 0;
     }
-
-    a.btn {
-      display: inline-block;
-      margin: 1rem 0.5rem;
-      padding: 0.75rem 1.5rem;
+    .btn {
       background-color: #00bbf9;
       color: white;
-      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border: none;
       border-radius: 10px;
+      margin: 0.5rem;
       font-weight: bold;
-    }
-
-    .task-planner {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: 2rem auto;
-    }
-
-    .task-planner h2 {
-      color: #111;
-    }
-
-    #task-form {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    #task-form select,
-    #task-form input,
-    #task-form button {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      flex: 1;
-    }
-
-    #task-form button {
-      background-color: #00bbf9;
-      color: white;
-      border: none;
       cursor: pointer;
-      flex: none;
-    }
-
-    #task-list li {
-      background: #f0f0f0;
-      margin-bottom: 8px;
-      padding: 10px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #000;
-    }
-
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: red;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .countdown {
-      font-size: 0.9rem;
-      color: #333;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo" />
-    <div class="content">
-      <h1>مرحبًا بك في موقع وقتي</h1>
-      <p>منظّم مهامك اليومية بطريقة محفزة وتفاعلية</p>
-      <a href="about.html" class="btn">حول الموقع</a>
-      <a href="week.html" class="btn">جدول الأسبوع</a>
-    </div>
-
-    <div class="task-planner">
-      <h2>خطتك اليومية</h2>
-      <form id="task-form">
-        <select id="task-day" required>
-          <option disabled selected>اختر اليوم</option>
-          <option>السبت</option>
-          <option>الأحد</option>
-          <option>الاثنين</option>
-          <option>الثلاثاء</option>
-          <option>الأربعاء</option>
-          <option>الخميس</option>
-          <option>الجمعة</option>
-        </select>
-        <input type="time" id="task-time" required />
-        <input type="text" id="task-desc" placeholder="اكتب المهمة..." required />
-        <button type="submit">إضافة المهمة</button>
-      </form>
-      <ul id="task-list"></ul>
-    </div>
+    <img src="logo2.jpg" alt="شعار الموقع" class="logo" />
+    <h1>مرحبًا بك في منظّم وقتي</h1>
+    <a href="week.html" class="btn">ابدأ بتنظيم أسبوعك</a>
+    <a href="about.html" class="btn">حول الموقع</a>
   </div>
-
-  <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
-
-  <script>
-    const form = document.getElementById("task-form");
-    const taskList = document.getElementById("task-list");
-
-    window.onload = () => {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.forEach(addTaskToUI);
-    };
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const day = document.getElementById("task-day").value;
-      const time = document.getElementById("task-time").value;
-      const desc = document.getElementById("task-desc").value;
-      const task = { day, time, desc };
-      addTaskToUI(task);
-
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.push(task);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-
-      form.reset();
-    });
-
-    function addTaskToUI(task) {
-      const li = document.createElement("li");
-      const countdownSpan = document.createElement("span");
-      countdownSpan.className = "countdown";
-
-      li.innerHTML = `<strong>${task.day} ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
-      li.insertBefore(countdownSpan, li.children[1]);
-      taskList.appendChild(li);
-
-      li.querySelector(".delete-btn").onclick = () => {
-        li.remove();
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc && t.day === task.day));
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-      };
-
-      const interval = setInterval(() => {
-        const remaining = getTimeDiff(task.time, task.day);
-        if (remaining <= 0) {
-          countdownSpan.innerText = "⌛ وقت المهمة الآن!";
-          clearInterval(interval);
-          document.getElementById("alarm-sound").play();
-        } else {
-          countdownSpan.innerText = `⏳ باقي ${formatTime(remaining)}`;
-        }
-      }, 1000);
-    }
-
-    function getTimeDiff(taskTime, taskDay) {
-      const [h, m] = taskTime.split(":").map(Number);
-      const now = new Date();
-      const taskDate = new Date();
-      const dayIndex = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"].indexOf(taskDay);
-      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - taskDate.getDay()) % 7));
-      taskDate.setHours(h, m, 0, 0);
-      return Math.floor((taskDate - now) / 1000);
-    }
-
-    function formatTime(seconds) {
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
-      return `${h > 0 ? h + "س " : ""}${m}د ${s}ث`;
-    }
-  </script>
 </body>
 </html>
