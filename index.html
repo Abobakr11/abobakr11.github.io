@@ -39,26 +39,13 @@
 
     a.btn {
       display: inline-block;
-      margin: 1rem 0.5rem 0 0.5rem;
+      margin: 1rem 0.5rem;
       padding: 0.75rem 1.5rem;
       background-color: #00bbf9;
       color: white;
       text-decoration: none;
       border-radius: 10px;
       font-weight: bold;
-    }
-
-    #blocker-message {
-      background-color: #fff3cd;
-      color: #856404;
-      padding: 20px;
-      margin: 2rem auto;
-      max-width: 400px;
-      text-align: center;
-      border: 2px solid #ffeeba;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      display: none;
     }
 
     .task-planner {
@@ -71,7 +58,6 @@
     }
 
     .task-planner h2 {
-      margin-bottom: 1rem;
       color: #111;
     }
 
@@ -79,7 +65,6 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 1rem;
     }
 
     #task-form select,
@@ -108,7 +93,6 @@
       justify-content: space-between;
       align-items: center;
       color: #000;
-      flex-wrap: wrap;
     }
 
     .delete-btn {
@@ -156,25 +140,9 @@
     </div>
   </div>
 
-  <div id="blocker-message">
-    <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
-    <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
-  </div>
-
   <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
 
   <script>
-    setTimeout(() => {
-      const directLink = "https://otieu.com/4/9630825";
-      const popup = window.open(directLink, "_blank");
-      if (!popup || popup.closed || typeof popup.closed === "undefined") {
-        document.querySelector(".overlay").style.display = "none";
-        document.getElementById("blocker-message").style.display = "block";
-      }
-    }, 500);
-
-    if ("Notification" in window) Notification.requestPermission();
-
     const form = document.getElementById("task-form");
     const taskList = document.getElementById("task-list");
 
@@ -220,7 +188,6 @@
           countdownSpan.innerText = "⌛ وقت المهمة الآن!";
           clearInterval(interval);
           document.getElementById("alarm-sound").play();
-          showNotification("📢 تذكير!", `الآن: ${task.desc}`);
         } else {
           countdownSpan.innerText = `⏳ باقي ${formatTime(remaining)}`;
         }
@@ -238,17 +205,10 @@
     }
 
     function formatTime(seconds) {
-      if (seconds < 0) return "0";
       const h = Math.floor(seconds / 3600);
       const m = Math.floor((seconds % 3600) / 60);
       const s = seconds % 60;
-      return `${h > 0 ? h + "س " : ""}${m > 0 ? m + "د " : ""}${s}ث`;
-    }
-
-    function showNotification(title, body) {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
-      }
+      return `${h > 0 ? h + "س " : ""}${m}د ${s}ث`;
     }
   </script>
 </body>
