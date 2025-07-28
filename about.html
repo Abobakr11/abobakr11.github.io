@@ -2,63 +2,94 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>حول الموقع</title>
+  <title>حول الموقع - وقتي</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
+      min-height: 100vh;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
       padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
     }
 
     .logo {
-      width: 100px;
-      margin-bottom: 1rem;
+      width: 120px;
+      display: block;
+      margin: 0 auto 1rem;
       border-radius: 10px;
     }
 
-    .box {
-      background: rgba(255, 255, 255, 0.95);
-      color: #222;
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 600px;
+    h1 {
+      margin-bottom: 1rem;
     }
 
-    a {
+    p {
+      max-width: 600px;
+      margin: auto;
+      font-size: 1.2rem;
+      line-height: 2;
+    }
+
+    a.btn {
       display: inline-block;
-      margin-top: 1.5rem;
-      color: #00f;
+      margin-top: 2rem;
+      padding: 0.7rem 1.5rem;
+      background-color: #00bbf9;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
       font-weight: bold;
+    }
+
+    #blocker-message {
+      display: none;
+      background: #fff3cd;
+      color: #856404;
+      padding: 20px;
+      margin: 2rem auto;
+      max-width: 400px;
+      border: 2px solid #ffeeba;
+      border-radius: 10px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo">
-    <div class="box">
-      <h1>حول الموقع</h1>
-      <p>
-        موقع <strong>وقتي</strong> يساعدك على تنظيم وقتك اليومي والأسبوعي من خلال تحديد المهام،
-        وتذكيرك بها عبر عد تنازلي، مع واجهة تفاعلية وتحفيزية.
-      </p>
-      <p>
-        يمكنك إضافة مهامك اليومية وربطها بتوقيت محدد، كما يمكنك بناء جدول أسبوعي خاص بك يتم حفظه تلقائيًا.
-      </p>
-      <a href="index.html">العودة للرئيسية</a>
-    </div>
+    <img src="logo2.jpg" alt="Logo" class="logo" />
+    <h1>حول الموقع</h1>
+    <p>
+      موقع <strong>وقتي</strong> هو أداة مجانية تساعدك على تنظيم مهامك اليومية والأسبوعية بطريقة سهلة وتفاعلية.
+      يمكنك إضافة المهام حسب الوقت أو إدارتها عبر جدول الأسبوع، مع تذكيرات وتحفيز مستمر. جميع البيانات تُحفظ تلقائيًا في المتصفح.
+    </p>
+    <a href="index.html" class="btn">العودة للرئيسية</a>
   </div>
+
+  <div id="blocker-message">
+    <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
+    <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
+  </div>
+
+  <script>
+    // إعلان
+    setTimeout(() => {
+      const directLink = "https://otieu.com/4/9630825";
+      const popup = window.open(directLink, "_blank");
+      if (!popup || popup.closed || typeof popup.closed === "undefined") {
+        document.querySelector(".overlay").style.display = "none";
+        document.getElementById("blocker-message").style.display = "block";
+      }
+    }, 500);
+  </script>
 </body>
 </html>
