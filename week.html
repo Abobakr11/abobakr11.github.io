@@ -7,24 +7,25 @@
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
+      min-height: 100vh;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
       padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
 
     .logo {
-      width: 100px;
-      margin-bottom: 1rem;
+      width: 120px;
+      display: block;
+      margin: 0 auto 1rem;
       border-radius: 10px;
     }
 
@@ -33,86 +34,118 @@
     }
 
     table {
-      background: rgba(255, 255, 255, 0.95);
-      color: #222;
-      border-collapse: collapse;
       width: 90%;
-      max-width: 700px;
-      border-radius: 12px;
+      margin: 2rem auto;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #000;
+      border-radius: 10px;
       overflow: hidden;
     }
 
-    th, td {
-      padding: 12px;
+    table th,
+    table td {
+      padding: 15px;
       text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    td input {
-      width: 90%;
-      padding: 8px;
       border: 1px solid #ccc;
-      border-radius: 6px;
     }
 
-    #status {
-      margin-top: 1rem;
-      background: #ffc107;
-      color: #000;
-      padding: 10px;
-      border-radius: 8px;
-      display: none;
+    table th {
+      background-color: #00bbf9;
+      color: white;
     }
 
-    a {
-      color: #00f;
-      margin-top: 20px;
+    table td[contenteditable="true"] {
+      background-color: #f7f7f7;
+    }
+
+    a.btn {
       display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      background-color: #00bbf9;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    #blocker-message {
+      display: none;
+      background: #fff3cd;
+      color: #856404;
+      padding: 20px;
+      margin: 2rem auto;
+      max-width: 400px;
+      border: 2px solid #ffeeba;
+      border-radius: 10px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo">
-    <h1>جدول مهام الأسبوع</h1>
+    <img src="logo2.jpg" alt="Logo" class="logo" />
+    <h1>جدول الأسبوع</h1>
+
     <table id="week-table">
-      <tr><th>اليوم</th><th>المهام</th></tr>
-      <tr><td>السبت</td><td><input type="text" data-day="السبت"></td></tr>
-      <tr><td>الأحد</td><td><input type="text" data-day="الأحد"></td></tr>
-      <tr><td>الاثنين</td><td><input type="text" data-day="الاثنين"></td></tr>
-      <tr><td>الثلاثاء</td><td><input type="text" data-day="الثلاثاء"></td></tr>
-      <tr><td>الأربعاء</td><td><input type="text" data-day="الأربعاء"></td></tr>
-      <tr><td>الخميس</td><td><input type="text" data-day="الخميس"></td></tr>
-      <tr><td>الجمعة</td><td><input type="text" data-day="الجمعة"></td></tr>
+      <tr>
+        <th>اليوم</th>
+        <th>المهام</th>
+      </tr>
+      <tr><td>السبت</td><td contenteditable="true"></td></tr>
+      <tr><td>الأحد</td><td contenteditable="true"></td></tr>
+      <tr><td>الاثنين</td><td contenteditable="true"></td></tr>
+      <tr><td>الثلاثاء</td><td contenteditable="true"></td></tr>
+      <tr><td>الأربعاء</td><td contenteditable="true"></td></tr>
+      <tr><td>الخميس</td><td contenteditable="true"></td></tr>
+      <tr><td>الجمعة</td><td contenteditable="true"></td></tr>
     </table>
-    <div id="status">✅ تم الحفظ...</div>
-    <a href="index.html">العودة للرئيسية</a>
+
+    <a href="index.html" class="btn">العودة للرئيسية</a>
+    <a href="about.html" class="btn">حول الموقع</a>
+  </div>
+
+  <div id="blocker-message">
+    <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
+    <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
   </div>
 
   <script>
-    const inputs = document.querySelectorAll('input[data-day]');
-    const status = document.getElementById('status');
+    // إعلان
+    setTimeout(() => {
+      const directLink = "https://otieu.com/4/9630825";
+      const popup = window.open(directLink, "_blank");
+      if (!popup || popup.closed || typeof popup.closed === "undefined") {
+        document.querySelector(".overlay").style.display = "none";
+        document.getElementById("blocker-message").style.display = "block";
+      }
+    }, 500);
 
-    function saveData() {
-      const weekData = {};
-      inputs.forEach(input => {
-        weekData[input.dataset.day] = input.value;
-      });
-      localStorage.setItem('weekTasks', JSON.stringify(weekData));
-      status.style.display = 'block';
-      setTimeout(() => status.style.display = 'none', 1500);
+    const table = document.getElementById("week-table");
+
+    // حفظ تلقائي
+    function saveWeekData() {
+      const rows = Array.from(table.rows).slice(1); // skip header
+      const data = rows.map(row => row.cells[1].innerText.trim());
+      localStorage.setItem("weekData", JSON.stringify(data));
     }
 
-    // تحميل البيانات عند فتح الصفحة
-    window.onload = () => {
-      const data = JSON.parse(localStorage.getItem('weekTasks')) || {};
-      inputs.forEach(input => {
-        input.value = data[input.dataset.day] || '';
-      });
-    };
+    // تحميل
+    function loadWeekData() {
+      const saved = JSON.parse(localStorage.getItem("weekData"));
+      if (saved) {
+        const rows = Array.from(table.rows).slice(1);
+        rows.forEach((row, i) => {
+          if (saved[i]) {
+            row.cells[1].innerText = saved[i];
+          }
+        });
+      }
+    }
 
-    // الحفظ تلقائيًا عند التعديل
-    inputs.forEach(input => input.addEventListener('input', saveData));
+    table.addEventListener("input", saveWeekData);
+    window.onload = loadWeekData;
   </script>
 </body>
 </html>
