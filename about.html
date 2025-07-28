@@ -6,13 +6,13 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: 'Cairo', sans-serif;
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
     }
+
     .overlay {
       background-color: rgba(0, 0, 0, 0.7);
       min-height: 100vh;
@@ -20,40 +20,45 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    .logo {
-      width: 100px;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 10px #00000088;
-    }
-    h1 {
-      margin-bottom: 1rem;
-    }
-    p {
-      max-width: 800px;
-      font-size: 1.2rem;
       text-align: center;
     }
-    .btn {
-      margin-top: 2rem;
-      background-color: #00bbf9;
-      color: white;
-      padding: 0.7rem 1.5rem;
-      border: none;
+
+    .logo {
+      width: 100px;
+      margin-bottom: 1rem;
       border-radius: 10px;
+    }
+
+    .box {
+      background: rgba(255, 255, 255, 0.95);
+      color: #222;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 600px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #00f;
       font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="شعار الموقع" class="logo" />
-    <h1>حول الموقع</h1>
-    <p>هذا الموقع صُمم لمساعدتك على تنظيم وقتك بشكل تفاعلي وممتع. يمكنك تحديد مهامك اليومية، إضافة تذكيرات، وتتبع جدولك الأسبوعي بسهولة.</p>
-    <a href="index.html" class="btn">العودة للرئيسية</a>
+    <img src="logo2.jpg" alt="Logo" class="logo">
+    <div class="box">
+      <h1>حول الموقع</h1>
+      <p>
+        موقع <strong>وقتي</strong> يساعدك على تنظيم وقتك اليومي والأسبوعي من خلال تحديد المهام،
+        وتذكيرك بها عبر عد تنازلي، مع واجهة تفاعلية وتحفيزية.
+      </p>
+      <p>
+        يمكنك إضافة مهامك اليومية وربطها بتوقيت محدد، كما يمكنك بناء جدول أسبوعي خاص بك يتم حفظه تلقائيًا.
+      </p>
+      <a href="index.html">العودة للرئيسية</a>
+    </div>
   </div>
 </body>
 </html>
