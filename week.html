@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>جدول الأسبوع - وقتي</title>
+  <title>جدول الأسبوع</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="6a97888e-site-verification" content="1d18948da3f18c46d7874cc6f3ce9ff1">
   <style>
     body {
       margin: 0;
@@ -12,98 +13,98 @@
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
-      min-height: 100vh;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       min-height: 100vh;
       padding: 2rem;
-      text-align: center;
-    }
-
-    .logo {
-      width: 120px;
-      display: block;
-      margin: 0 auto 1rem;
-      border-radius: 10px;
     }
 
     h1 {
-      margin-bottom: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     table {
-      width: 90%;
-      margin: 2rem auto;
+      width: 100%;
       border-collapse: collapse;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: #ffffffcc;
       color: #000;
+      margin: auto;
+      max-width: 900px;
       border-radius: 10px;
       overflow: hidden;
     }
 
-    table th,
-    table td {
-      padding: 15px;
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
       text-align: center;
-      border: 1px solid #ccc;
     }
 
-    table th {
+    th {
       background-color: #00bbf9;
       color: white;
     }
 
-    table td[contenteditable="true"] {
-      background-color: #f7f7f7;
+    td[contenteditable="true"] {
+      background-color: #fff;
     }
 
-    a.btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.7rem 1.5rem;
+    .nav {
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .nav a {
+      color: #fff;
       background-color: #00bbf9;
-      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
       text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
+      margin: 0 10px;
     }
 
     #blocker-message {
-      display: none;
-      background: #fff3cd;
+      background-color: #fff3cd;
       color: #856404;
       padding: 20px;
       margin: 2rem auto;
       max-width: 400px;
+      text-align: center;
       border: 2px solid #ffeeba;
       border-radius: 10px;
       font-size: 1.1rem;
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo" />
-    <h1>جدول الأسبوع</h1>
+    <div class="nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="about.html">حول الموقع</a>
+    </div>
 
+    <h1>جدول المهام الأسبوعي</h1>
     <table id="week-table">
-      <tr>
-        <th>اليوم</th>
-        <th>المهام</th>
-      </tr>
-      <tr><td>السبت</td><td contenteditable="true"></td></tr>
-      <tr><td>الأحد</td><td contenteditable="true"></td></tr>
-      <tr><td>الاثنين</td><td contenteditable="true"></td></tr>
-      <tr><td>الثلاثاء</td><td contenteditable="true"></td></tr>
-      <tr><td>الأربعاء</td><td contenteditable="true"></td></tr>
-      <tr><td>الخميس</td><td contenteditable="true"></td></tr>
-      <tr><td>الجمعة</td><td contenteditable="true"></td></tr>
+      <thead>
+        <tr>
+          <th>اليوم</th>
+          <th>المهام</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>السبت</td><td contenteditable="true"></td></tr>
+        <tr><td>الأحد</td><td contenteditable="true"></td></tr>
+        <tr><td>الاثنين</td><td contenteditable="true"></td></tr>
+        <tr><td>الثلاثاء</td><td contenteditable="true"></td></tr>
+        <tr><td>الأربعاء</td><td contenteditable="true"></td></tr>
+        <tr><td>الخميس</td><td contenteditable="true"></td></tr>
+        <tr><td>الجمعة</td><td contenteditable="true"></td></tr>
+      </tbody>
     </table>
-
-    <a href="index.html" class="btn">العودة للرئيسية</a>
-    <a href="about.html" class="btn">حول الموقع</a>
   </div>
 
   <div id="blocker-message">
@@ -112,40 +113,20 @@
   </div>
 
   <script>
-    // إعلان
-    setTimeout(() => {
-      const directLink = "https://otieu.com/4/9630825";
-      const popup = window.open(directLink, "_blank");
-      if (!popup || popup.closed || typeof popup.closed === "undefined") {
-        document.querySelector(".overlay").style.display = "none";
-        document.getElementById("blocker-message").style.display = "block";
-      }
-    }, 500);
-
     const table = document.getElementById("week-table");
+    const savedData = JSON.parse(localStorage.getItem("weekData") || "{}");
 
-    // حفظ تلقائي
-    function saveWeekData() {
-      const rows = Array.from(table.rows).slice(1); // skip header
-      const data = rows.map(row => row.cells[1].innerText.trim());
-      localStorage.setItem("weekData", JSON.stringify(data));
-    }
-
-    // تحميل
-    function loadWeekData() {
-      const saved = JSON.parse(localStorage.getItem("weekData"));
-      if (saved) {
-        const rows = Array.from(table.rows).slice(1);
-        rows.forEach((row, i) => {
-          if (saved[i]) {
-            row.cells[1].innerText = saved[i];
-          }
+    for (let row of table.rows) {
+      if (row.cells.length === 2 && row.rowIndex !== 0) {
+        const day = row.cells[0].innerText.trim();
+        const cell = row.cells[1];
+        cell.innerText = savedData[day] || "";
+        cell.addEventListener("input", () => {
+          savedData[day] = cell.innerText;
+          localStorage.setItem("weekData", JSON.stringify(savedData));
         });
       }
     }
-
-    table.addEventListener("input", saveWeekData);
-    window.onload = loadWeekData;
   </script>
 </body>
 </html>
