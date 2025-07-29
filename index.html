@@ -6,7 +6,6 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <meta name="6a97888e-site-verification" content="1d18948da3f18c46d7874cc6f3ce9ff1">
   <style>
-    /* ... (نفس التنسيقات كما أرسلتها أنت، بدون تغيير) */
     body {
       margin: 0;
       padding: 0;
@@ -16,7 +15,116 @@
       color: white;
       height: 100vh;
     }
-    /* باقي التنسيقات كما هي */
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 120px;
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00000088;
+    }
+
+    .content {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    a.btn {
+      display: inline-block;
+      margin: 1rem 0.5rem 0 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #00bbf9;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .task-planner {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #222;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .task-planner h2 {
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    #task-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    #task-form select,
+    #task-form input,
+    #task-form button {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      flex: 1;
+    }
+
+    #task-form button {
+      background-color: #00bbf9;
+      color: white;
+      border: none;
+      cursor: pointer;
+      flex: none;
+    }
+
+    #task-list li {
+      background: #f0f0f0;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #000;
+      flex-wrap: wrap;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: red;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .countdown {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    #blocker-message {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 20px;
+      margin: 2rem auto;
+      max-width: 400px;
+      text-align: center;
+      border: 2px solid #ffeeba;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -58,16 +166,6 @@
   <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
 
   <script>
-    // إعلان ExoClick
-    setTimeout(() => {
-      const directLink = "https://syndication.exoclick.com/spot?cid=YOUR_CAMPAIGN_ID";
-      const popup = window.open(directLink, "_blank");
-      if (!popup || popup.closed || typeof popup.closed === "undefined") {
-        document.querySelector(".overlay").style.display = "none";
-        document.getElementById("blocker-message").style.display = "block";
-      }
-    }, 500);
-
     if ("Notification" in window) Notification.requestPermission();
 
     const form = document.getElementById("task-form");
