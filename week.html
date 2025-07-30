@@ -66,18 +66,7 @@
       margin: 0 10px;
     }
 
-    #blocker-message {
-      background-color: #fff3cd;
-      color: #856404;
-      padding: 20px;
-      margin: 2rem auto;
-      max-width: 400px;
-      text-align: center;
-      border: 2px solid #ffeeba;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      display: none;
-    }
+   
   </style>
 </head>
 <body>
@@ -107,11 +96,7 @@
     </table>
   </div>
 
-  <div id="blocker-message">
-    <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
-    <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
-  </div>
-
+  
   <script>
     const table = document.getElementById("week-table");
     const savedData = JSON.parse(localStorage.getItem("weekData") || "{}");
