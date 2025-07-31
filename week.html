@@ -1,116 +1,62 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>جدول الأسبوع</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <title>جدول الأسبوع - وقتي</title>
+  <link rel="icon" href="favicon.ico">
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      text-align: center;
       margin: 0;
       padding: 0;
-      font-family: 'Cairo', sans-serif;
-      background: url("logo2.jpg") no-repeat center center fixed;
-      background-size: cover;
+    }
+    header {
+      background-color: #28a745;
       color: white;
+      padding: 1rem;
     }
-
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.7);
-      min-height: 100vh;
-      padding: 2rem;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
     table {
-      width: 100%;
+      width: 90%;
+      margin: 2rem auto;
       border-collapse: collapse;
-      background-color: #ffffffcc;
-      color: #000;
-      margin: auto;
-      max-width: 900px;
-      border-radius: 10px;
-      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-
     th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
+      border: 1px solid #ccc;
+      padding: 0.75rem;
     }
-
     th {
-      background-color: #00bbf9;
-      color: white;
+      background-color: #e9ecef;
     }
-
-    td[contenteditable="true"] {
-      background-color: #fff;
-    }
-
-    .nav {
+    td input {
+      width: 100%;
+      border: none;
+      background: transparent;
       text-align: center;
-      margin: 1rem 0;
     }
-
-    .nav a {
-      color: #fff;
-      background-color: #00bbf9;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-   
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <div class="nav">
-      <a href="index.html">الرئيسية</a>
-      <a href="about.html">حول الموقع</a>
-    </div>
+  <header>
+    <img src="logo2.jpg" alt="شعار وقتي" class="logo" width="100">
+    <h1>جدول الأسبوع</h1>
+  </header>
 
-    <h1>جدول المهام الأسبوعي</h1>
-    <table id="week-table">
-      <thead>
-        <tr>
-          <th>اليوم</th>
-          <th>المهام</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>السبت</td><td contenteditable="true"></td></tr>
-        <tr><td>الأحد</td><td contenteditable="true"></td></tr>
-        <tr><td>الاثنين</td><td contenteditable="true"></td></tr>
-        <tr><td>الثلاثاء</td><td contenteditable="true"></td></tr>
-        <tr><td>الأربعاء</td><td contenteditable="true"></td></tr>
-        <tr><td>الخميس</td><td contenteditable="true"></td></tr>
-        <tr><td>الجمعة</td><td contenteditable="true"></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  
-  <script>
-    const table = document.getElementById("week-table");
-    const savedData = JSON.parse(localStorage.getItem("weekData") || "{}");
-
-    for (let row of table.rows) {
-      if (row.cells.length === 2 && row.rowIndex !== 0) {
-        const day = row.cells[0].innerText.trim();
-        const cell = row.cells[1];
-        cell.innerText = savedData[day] || "";
-        cell.addEventListener("input", () => {
-          savedData[day] = cell.innerText;
-          localStorage.setItem("weekData", JSON.stringify(savedData));
-        });
-      }
-    }
-  </script>
+  <table>
+    <tr>
+      <th>اليوم</th>
+      <th>المهام</th>
+    </tr>
+    <tr><td>الأحد</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>الإثنين</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>الثلاثاء</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>الأربعاء</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>الخميس</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>الجمعة</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+    <tr><td>السبت</td><td><input type="text" placeholder="أدخل المهام"></td></tr>
+  </table>
 </body>
 </html>
