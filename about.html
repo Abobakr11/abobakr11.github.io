@@ -50,18 +50,6 @@
       border-radius: 10px;
       font-weight: bold;
     }
-
-    #blocker-message {
-      display: none;
-      background: #fff3cd;
-      color: #856404;
-      padding: 20px;
-      margin: 2rem auto;
-      max-width: 400px;
-      border: 2px solid #ffeeba;
-      border-radius: 10px;
-      font-size: 1.1rem;
-    }
   </style>
 </head>
 <body>
@@ -74,22 +62,5 @@
     </p>
     <a href="index.html" class="btn">العودة للرئيسية</a>
   </div>
-
-  <div id="blocker-message">
-    <p>⚠️ يبدو أن المتصفح قام <strong>بحظر نافذة منبثقة</strong>.</p>
-    <p>يرجى <strong>إيقاف الحظر</strong> ثم إعادة تحميل الصفحة.</p>
-  </div>
-
-  <script>
-    // إعلان
-    setTimeout(() => {
-      const directLink = "https://otieu.com/4/9630825";
-      const popup = window.open(directLink, "_blank");
-      if (!popup || popup.closed || typeof popup.closed === "undefined") {
-        document.querySelector(".overlay").style.display = "none";
-        document.getElementById("blocker-message").style.display = "block";
-      }
-    }, 500);
-  </script>
 </body>
 </html>
