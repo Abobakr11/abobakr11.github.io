@@ -1,237 +1,72 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>منظّم وقتي</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <meta name="6a97888e-site-verification" content="029b3b702f4f41e594e322176f128ca5">
+  <meta charset="UTF-8">
+  <title>موقعي - وقتي</title>
+  <!-- ✅ أيقونة الموقع -->
+  <link rel="icon" href="favicon.ico">
+
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
       margin: 0;
       padding: 0;
-      font-family: 'Cairo', sans-serif;
-      background: url("logo2.jpg") no-repeat center center fixed;
-      background-size: cover;
+    }
+    header {
+      background-color: #007bff;
       color: white;
-      height: 100vh;
+      padding: 1rem;
     }
-
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
     .logo {
-      width: 120px;
-      display: block;
-      margin: 20px auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00000088;
+      width: 100px;
+      height: auto;
     }
-
-    .content {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    a.btn {
-      display: inline-block;
-      margin: 1rem 0.5rem 0 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #00bbf9;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .task-planner {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
+    .tasks {
       margin: 2rem auto;
+      max-width: 600px;
+      text-align: right;
     }
-
-    .task-planner h2 {
+    .task {
+      background: white;
       margin-bottom: 1rem;
-      color: #111;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
-    #task-form {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    #task-form select,
-    #task-form input,
-    #task-form button {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      flex: 1;
-    }
-
-    #task-form button {
-      background-color: #00bbf9;
-      color: white;
-      border: none;
-      cursor: pointer;
-      flex: none;
-    }
-
-    #task-list li {
-      background: #f0f0f0;
-      margin-bottom: 8px;
-      padding: 10px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #000;
-      flex-wrap: wrap;
-    }
-
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: red;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .countdown {
-      font-size: 0.9rem;
-      color: #333;
-    }
-
-   
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <img src="logo2.jpg" alt="Logo" class="logo" />
-    <div class="content">
-      <h1>مرحبًا بك في موقع وقتي</h1>
-      <p>منظّم مهامك اليومية بطريقة محفزة وتفاعلية</p>
-      <a href="about.html" class="btn">حول الموقع</a>
-      <a href="week.html" class="btn">جدول الأسبوع</a>
-    </div>
+  <!-- ✅ شعار الموقع -->
+  <header>
+    <img src="logo2.jpg" alt="شعار موقعي" class="logo">
+    <h1>مرحباً بك في موقع وقتي</h1>
+  </header>
 
-    <div class="task-planner">
-      <h2>خطتك اليومية</h2>
-      <form id="task-form">
-        <select id="task-day" required>
-          <option disabled selected>اختر اليوم</option>
-          <option>السبت</option>
-          <option>الأحد</option>
-          <option>الاثنين</option>
-          <option>الثلاثاء</option>
-          <option>الأربعاء</option>
-          <option>الخميس</option>
-          <option>الجمعة</option>
-        </select>
-        <input type="time" id="task-time" required />
-        <input type="text" id="task-desc" placeholder="اكتب المهمة..." required />
-        <button type="submit">إضافة المهمة</button>
-      </form>
-      <ul id="task-list"></ul>
+  <!-- ✅ قسم المهام اليومية -->
+  <div class="tasks">
+    <div class="task">
+      <h3>🕒 أضف مهمة جديدة حسب الوقت</h3>
+      <input type="time" id="taskTime">
+      <input type="text" id="taskText" placeholder="اكتب المهمة">
+      <button onclick="addTask()">إضافة</button>
+      <ul id="taskList"></ul>
     </div>
   </div>
 
-  
-
-  <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
-
+  <!-- ✅ كود المهام -->
   <script>
-    if ("Notification" in window) Notification.requestPermission();
-
-    const form = document.getElementById("task-form");
-    const taskList = document.getElementById("task-list");
-
-    window.onload = () => {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.forEach(addTaskToUI);
-    };
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const day = document.getElementById("task-day").value;
-      const time = document.getElementById("task-time").value;
-      const desc = document.getElementById("task-desc").value;
-      const task = { day, time, desc };
-      addTaskToUI(task);
-
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.push(task);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-
-      form.reset();
-    });
-
-    function addTaskToUI(task) {
-      const li = document.createElement("li");
-      const countdownSpan = document.createElement("span");
-      countdownSpan.className = "countdown";
-
-      li.innerHTML = `<strong>${task.day} ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
-      li.insertBefore(countdownSpan, li.children[1]);
-      taskList.appendChild(li);
-
-      li.querySelector(".delete-btn").onclick = () => {
-        li.remove();
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc && t.day === task.day));
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-      };
-
-      const interval = setInterval(() => {
-        const remaining = getTimeDiff(task.time, task.day);
-        if (remaining <= 0) {
-          countdownSpan.innerText = "⌛ وقت المهمة الآن!";
-          clearInterval(interval);
-          document.getElementById("alarm-sound").play();
-          showNotification("📢 تذكير!", `الآن: ${task.desc}`);
-        } else {
-          countdownSpan.innerText = `⏳ باقي ${formatTime(remaining)}`;
-        }
-      }, 1000);
-    }
-
-    function getTimeDiff(taskTime, taskDay) {
-      const [h, m] = taskTime.split(":").map(Number);
-      const now = new Date();
-      const taskDate = new Date();
-      const dayIndex = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"].indexOf(taskDay);
-      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - taskDate.getDay()) % 7));
-      taskDate.setHours(h, m, 0, 0);
-      return Math.floor((taskDate - now) / 1000);
-    }
-
-    function formatTime(seconds) {
-      if (seconds < 0) return "0";
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
-      return `${h > 0 ? h + "س " : ""}${m > 0 ? m + "د " : ""}${s}ث`;
-    }
-
-    function showNotification(title, body) {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
+    function addTask() {
+      const time = document.getElementById("taskTime").value;
+      const text = document.getElementById("taskText").value;
+      if (time && text) {
+        const li = document.createElement("li");
+        li.textContent = time + " - " + text;
+        document.getElementById("taskList").appendChild(li);
+        document.getElementById("taskText").value = "";
       }
     }
   </script>
-  <script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script> 
- <ins class="eas6a97888e2" data-zoneid="5689240"></ins> 
- <script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script>
 </body>
 </html>
