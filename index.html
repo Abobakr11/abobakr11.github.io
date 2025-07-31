@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>منظّم وقتي</title>
+  <title>حول الموقع - وقتي</title>
   <meta name="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" content="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
@@ -13,7 +13,7 @@
       background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     .overlay {
@@ -21,210 +21,54 @@
       min-height: 100vh;
       padding: 2rem;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .logo {
       width: 120px;
       display: block;
-      margin: 20px auto;
+      margin: 0 auto 1rem;
       border-radius: 10px;
-      box-shadow: 0 0 10px #00000088;
     }
 
-    .content {
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    p {
       max-width: 600px;
       margin: auto;
+      font-size: 1.2rem;
+      line-height: 2;
     }
 
     a.btn {
       display: inline-block;
-      margin: 1rem 0.5rem 0 0.5rem;
-      padding: 0.75rem 1.5rem;
+      margin-top: 2rem;
+      padding: 0.7rem 1.5rem;
       background-color: #00bbf9;
       color: white;
       text-decoration: none;
       border-radius: 10px;
       font-weight: bold;
     }
-
-    .task-planner {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: 2rem auto;
-    }
-
-    .task-planner h2 {
-      margin-bottom: 1rem;
-      color: #111;
-    }
-
-    #task-form {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    #task-form select,
-    #task-form input,
-    #task-form button {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      flex: 1;
-    }
-
-    #task-form button {
-      background-color: #00bbf9;
-      color: white;
-      border: none;
-      cursor: pointer;
-      flex: none;
-    }
-
-    #task-list li {
-      background: #f0f0f0;
-      margin-bottom: 8px;
-      padding: 10px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #000;
-      flex-wrap: wrap;
-    }
-
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: red;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .countdown {
-      font-size: 0.9rem;
-      color: #333;
-    }
   </style>
 </head>
 <body>
   <div class="overlay">
     <img src="logo2.jpg" alt="Logo" class="logo" />
-    <div class="content">
-      <h1>مرحبًا بك في موقع وقتي</h1>
-      <p>منظّم مهامك اليومية بطريقة محفزة وتفاعلية</p>
-      <a href="about.html" class="btn">حول الموقع</a>
-      <a href="week.html" class="btn">جدول الأسبوع</a>
-    </div>
-
-    <div class="task-planner">
-      <h2>خطتك اليومية</h2>
-      <form id="task-form">
-        <select id="task-day" required>
-          <option disabled selected>اختر اليوم</option>
-          <option>السبت</option>
-          <option>الأحد</option>
-          <option>الاثنين</option>
-          <option>الثلاثاء</option>
-          <option>الأربعاء</option>
-          <option>الخميس</option>
-          <option>الجمعة</option>
-        </select>
-        <input type="time" id="task-time" required />
-        <input type="text" id="task-desc" placeholder="اكتب المهمة..." required />
-        <button type="submit">إضافة المهمة</button>
-      </form>
-      <ul id="task-list"></ul>
+    <h1>حول الموقع</h1>
+    <p>
+      موقع <strong>وقتي</strong> هو أداة مجانية تساعدك على تنظيم مهامك اليومية والأسبوعية بطريقة سهلة وتفاعلية.
+      يمكنك إضافة المهام حسب الوقت أو إدارتها عبر جدول الأسبوع، مع تذكيرات وتحفيز مستمر. جميع البيانات تُحفظ تلقائيًا في المتصفح.
+    </p>
+    <a href="index.html" class="btn">العودة للرئيسية</a>
+    
+    <!-- إعلان EatCells -->
+    <div style="margin-top: 3rem; padding: 1rem; background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 400px; margin-left: auto; margin-right: auto;">
+      <h3 style="margin-bottom: 1rem; color: #00bbf9;">جرب لعبة EatCells الممتعة!</h3>
+      <p style="font-size: 1rem; margin-bottom: 1rem;">استمتع بواحدة من أكثر مفاهيم الألعاب إثارة في السنوات الأخيرة</p>
+      <a href="https://eatcells.com/land/?token=da8e08699dc1ec5ce2780e43e44edb8c" target="_blank" style="display: inline-block; padding: 0.7rem 1.5rem; background-color: #ff6b35; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background-color 0.3s;">العب الآن</a>
     </div>
   </div>
-
-  <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
-
-  <script>
-    if ("Notification" in window) Notification.requestPermission();
-
-    const form = document.getElementById("task-form");
-    const taskList = document.getElementById("task-list");
-
-    window.onload = () => {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.forEach(addTaskToUI);
-    };
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const day = document.getElementById("task-day").value;
-      const time = document.getElementById("task-time").value;
-      const desc = document.getElementById("task-desc").value;
-      const task = { day, time, desc };
-      addTaskToUI(task);
-
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.push(task);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-
-      form.reset();
-    });
-
-    function addTaskToUI(task) {
-      const li = document.createElement("li");
-      const countdownSpan = document.createElement("span");
-      countdownSpan.className = "countdown";
-
-      li.innerHTML = `<strong>${task.day} ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
-      li.insertBefore(countdownSpan, li.children[1]);
-      taskList.appendChild(li);
-
-      li.querySelector(".delete-btn").onclick = () => {
-        li.remove();
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc && t.day === task.day));
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-      };
-
-      const interval = setInterval(() => {
-        const remaining = getTimeDiff(task.time, task.day);
-        if (remaining <= 0) {
-          countdownSpan.innerText = "⌛ وقت المهمة الآن!";
-          clearInterval(interval);
-          document.getElementById("alarm-sound").play();
-          showNotification("📢 تذكير!", `الآن: ${task.desc}`);
-        } else {
-          countdownSpan.innerText = `⏳ باقي ${formatTime(remaining)}`;
-        }
-      }, 1000);
-    }
-
-    function getTimeDiff(taskTime, taskDay) {
-      const [h, m] = taskTime.split(":").map(Number);
-      const now = new Date();
-      const taskDate = new Date();
-      const dayIndex = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"].indexOf(taskDay);
-      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - taskDate.getDay()) % 7));
-      taskDate.setHours(h, m, 0, 0);
-      return Math.floor((taskDate - now) / 1000);
-    }
-
-    function formatTime(seconds) {
-      if (seconds < 0) return "0";
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
-      return `${h > 0 ? h + "س " : ""}${m > 0 ? m + "د " : ""}${s}ث`;
-    }
-
-    function showNotification(title, body) {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
-      }
-    }
-  </script>
 </body>
 </html>
