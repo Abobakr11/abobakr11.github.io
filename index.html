@@ -1,21 +1,20 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;ar&quot; dir=&quot;rtl&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot; /&gt;
-  &lt;title&gt;منظّم وقتي&lt;/title&gt;
-  &lt;meta name=&quot;57d7750da92ffe9e18010a79a71f2f96ad81fbb6&quot; content=&quot;57d7750da92ffe9e18010a79a71f2f96ad81fbb6&quot; /&gt;
-  &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot; type=&quot;image/x-icon&quot; /&gt;
-  &lt;style&gt;
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>منظّم وقتي</title>
+  <meta name="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" content="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Cairo', sans-serif;
-      background: url(&quot;logo2.jpg&quot;) no-repeat center center fixed;
+      background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
       height: 100vh;
     }
-
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
@@ -25,7 +24,6 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .logo {
       width: 120px;
       display: block;
@@ -33,12 +31,10 @@
       border-radius: 10px;
       box-shadow: 0 0 10px #00000088;
     }
-
     .content {
       max-width: 600px;
       margin: auto;
     }
-
     a.btn {
       display: inline-block;
       margin: 1rem 0.5rem 0 0.5rem;
@@ -49,7 +45,6 @@
       border-radius: 10px;
       font-weight: bold;
     }
-
     .task-planner {
       background-color: rgba(255, 255, 255, 0.9);
       color: #222;
@@ -58,19 +53,16 @@
       max-width: 500px;
       margin: 2rem auto;
     }
-
     .task-planner h2 {
       margin-bottom: 1rem;
       color: #111;
     }
-
     #task-form {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
-
     #task-form select,
     #task-form input,
     #task-form button {
@@ -79,7 +71,6 @@
       border: 1px solid #ccc;
       flex: 1;
     }
-
     #task-form button {
       background-color: #00bbf9;
       color: white;
@@ -87,7 +78,6 @@
       cursor: pointer;
       flex: none;
     }
-
     #task-list li {
       background: #f0f0f0;
       margin-bottom: 8px;
@@ -99,7 +89,6 @@
       color: #000;
       flex-wrap: wrap;
     }
-
     .delete-btn {
       background: transparent;
       border: none;
@@ -107,97 +96,94 @@
       font-size: 1rem;
       cursor: pointer;
     }
-
     .countdown {
       font-size: 0.9rem;
       color: #333;
     }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div class=&quot;overlay&quot;&gt;
-    &lt;img src=&quot;logo2.jpg&quot; alt=&quot;Logo&quot; class=&quot;logo&quot; /&gt;
-    &lt;div class=&quot;content&quot;&gt;
-      &lt;h1&gt;مرحبًا بك في موقع وقتي&lt;/h1&gt;
-      &lt;p&gt;منظّم مهامك اليومية بطريقة محفزة وتفاعلية&lt;/p&gt;
-      &lt;a href=&quot;about.html&quot; class=&quot;btn&quot;&gt;حول الموقع&lt;/a&gt;
-      &lt;a href=&quot;week.html&quot; class=&quot;btn&quot;&gt;جدول الأسبوع&lt;/a&gt;
-    &lt;/div&gt;
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <img src="logo2.jpg" alt="Logo" class="logo" />
+    <div class="content">
+      <h1>مرحبًا بك في موقع وقتي</h1>
+      <p>منظّم مهامك اليومية بطريقة محفزة وتفاعلية</p>
+      <a href="about.html" class="btn">حول الموقع</a>
+      <a href="week.html" class="btn">جدول الأسبوع</a>
+    </div>
+    <div class="task-planner">
+      <h2>خطتك اليومية</h2>
+      <form id="task-form">
+        <select id="task-day" required>
+          <option disabled selected>اختر اليوم</option>
+          <option>السبت</option>
+          <option>الأحد</option>
+          <option>الاثنين</option>
+          <option>الثلاثاء</option>
+          <option>الأربعاء</option>
+          <option>الخميس</option>
+          <option>الجمعة</option>
+        </select>
+        <input type="time" id="task-time" required />
+        <input type="text" id="task-desc" placeholder="اكتب المهمة..." required />
+        <button type="submit">إضافة المهمة</button>
+      </form>
+      <ul id="task-list"></ul>
+    </div>
+  </div>
+  <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
+  <script>
+    // --- Ad Function ---
+    function openAd() {
+      window.open("https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-", "_blank" );
+    }
 
-    &lt;div class=&quot;task-planner&quot;&gt;
-      &lt;h2&gt;خطتك اليومية&lt;/h2&gt;
-      &lt;form id=&quot;task-form&quot;&gt;
-        &lt;select id=&quot;task-day&quot; required&gt;
-          &lt;option disabled selected&gt;اختر اليوم&lt;/option&gt;
-          &lt;option&gt;السبت&lt;/option&gt;
-          &lt;option&gt;الأحد&lt;/option&gt;
-          &lt;option&gt;الاثنين&lt;/option&gt;
-          &lt;option&gt;الثلاثاء&lt;/option&gt;
-          &lt;option&gt;الأربعاء&lt;/option&gt;
-          &lt;option&gt;الخميس&lt;/option&gt;
-          &lt;option&gt;الجمعة&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;input type=&quot;time&quot; id=&quot;task-time&quot; required /&gt;
-        &lt;input type=&quot;text&quot; id=&quot;task-desc&quot; placeholder=&quot;اكتب المهمة...&quot; required /&gt;
-        &lt;button type=&quot;submit&quot;&gt;إضافة المهمة&lt;/button&gt;
-      &lt;/form&gt;
-      &lt;ul id=&quot;task-list&quot;&gt;&lt;/ul&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+    // --- Main App Logic ---
+    if ("Notification" in window) Notification.requestPermission();
+    const form = document.getElementById("task-form");
+    const taskList = document.getElementById("task-list");
 
-  &lt;audio id=&quot;alarm-sound&quot; src=&quot;alarm.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
-
-  &lt;script&gt;
-    if (&quot;Notification&quot; in window) Notification.requestPermission();
-
-    const form = document.getElementById(&quot;task-form&quot;);
-    const taskList = document.getElementById(&quot;task-list&quot;);
-
-    window.onload = () =&gt; {
-      const tasks = JSON.parse(localStorage.getItem(&quot;tasks&quot;)) || [];
+    window.onload = () => {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
       tasks.forEach(addTaskToUI);
+      // Open ad on load and then every 30 seconds
       openAd();
       setInterval(openAd, 30000);
     };
 
-    form.addEventListener(&quot;submit&quot;, function (e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      const day = document.getElementById(&quot;task-day&quot;).value;
-      const time = document.getElementById(&quot;task-time&quot;).value;
-      const desc = document.getElementById(&quot;task-desc&quot;).value;
+      const day = document.getElementById("task-day").value;
+      const time = document.getElementById("task-time").value;
+      const desc = document.getElementById("task-desc").value;
       const task = { day, time, desc };
       addTaskToUI(task);
-
-      const tasks = JSON.parse(localStorage.getItem(&quot;tasks&quot;)) || [];
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
       tasks.push(task);
-      localStorage.setItem(&quot;tasks&quot;, JSON.stringify(tasks));
-
+      localStorage.setItem("tasks", JSON.stringify(tasks));
       form.reset();
     });
 
     function addTaskToUI(task) {
-      const li = document.createElement(&quot;li&quot;);
-      const countdownSpan = document.createElement(&quot;span&quot;);
-      countdownSpan.className = &quot;countdown&quot;;
-
-      li.innerHTML = `&lt;strong&gt;${task.day} ${task.time}&lt;/strong&gt; - ${task.desc} &lt;button class=&quot;delete-btn&quot;&gt;❌&lt;/button&gt;`;
+      const li = document.createElement("li");
+      const countdownSpan = document.createElement("span");
+      countdownSpan.className = "countdown";
+      li.innerHTML = `<strong>${task.day} ${task.time}</strong> - ${task.desc} <button class="delete-btn">❌</button>`;
       li.insertBefore(countdownSpan, li.children[1]);
       taskList.appendChild(li);
-
-      li.querySelector(&quot;.delete-btn&quot;).onclick = () =&gt; {
+      li.querySelector(".delete-btn").onclick = () => {
         li.remove();
-        let tasks = JSON.parse(localStorage.getItem(&quot;tasks&quot;)) || [];
-        tasks = tasks.filter(t =&gt; !(t.time === task.time &amp;&amp; t.desc === task.desc &amp;&amp; t.day === task.day));
-        localStorage.setItem(&quot;tasks&quot;, JSON.stringify(tasks));
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(t => !(t.time === task.time && t.desc === task.desc && t.day === task.day));
+        localStorage.setItem("tasks", JSON.stringify(tasks));
       };
-
-      const interval = setInterval(() =&gt; {
+      const interval = setInterval(() => {
         const remaining = getTimeDiff(task.time, task.day);
-        if (remaining &lt;= 0) {
-          countdownSpan.innerText = &quot;⌛ وقت المهمة الآن!&quot;;
+        if (remaining <= 0) {
+          countdownSpan.innerText = "⌛ وقت المهمة الآن!";
           clearInterval(interval);
-          document.getElementById(&quot;alarm-sound&quot;).play();
-          showNotification(&quot;📢 تذكير!&quot;, `الآن: ${task.desc}`);
+          document.getElementById("alarm-sound").play();
+          showNotification("📢 تذكير!", `الآن: ${task.desc}`);
         } else {
           countdownSpan.innerText = `⏳ باقي ${formatTime(remaining)}`;
         }
@@ -205,32 +191,28 @@
     }
 
     function getTimeDiff(taskTime, taskDay) {
-      const [h, m] = taskTime.split(&quot;:&quot;).map(Number);
+      const [h, m] = taskTime.split(":").map(Number);
       const now = new Date();
       const taskDate = new Date();
-      const dayIndex = [&quot;الأحد&quot;, &quot;الاثنين&quot;, &quot;الثلاثاء&quot;, &quot;الأربعاء&quot;, &quot;الخميس&quot;, &quot;الجمعة&quot;, &quot;السبت&quot;].indexOf(taskDay);
-      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - taskDate.getDay()) % 7));
+      const dayIndex = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"].indexOf(taskDay);
+      taskDate.setDate(taskDate.getDate() + ((dayIndex + 7 - now.getDay()) % 7));
       taskDate.setHours(h, m, 0, 0);
       return Math.floor((taskDate - now) / 1000);
     }
 
     function formatTime(seconds) {
-      if (seconds &lt; 0) return &quot;0&quot;;
+      if (seconds < 0) return "0";
       const h = Math.floor(seconds / 3600);
       const m = Math.floor((seconds % 3600) / 60);
       const s = seconds % 60;
-      return `${h &gt; 0 ? h + &quot;س &quot; : &quot;&quot;}${m &gt; 0 ? m + &quot;د &quot; : &quot;&quot;}${s}ث`;
+      return `${h > 0 ? h + "س " : ""}${m > 0 ? m + "د " : ""}${s}ث`;
     }
 
     function showNotification(title, body) {
-      if (Notification.permission === &quot;granted&quot;) {
+      if (Notification.permission === "granted") {
         new Notification(title, { body });
       }
     }
-
-    function openAd() {
-      window.open(&quot;https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-&quot;, &quot;_blank&quot; );
-    }
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+  </script>
+</body>
+</html>
