@@ -85,12 +85,6 @@
     <a href="about.html" class="btn">حول الموقع</a>
   </div>
   <script>
-    // --- Ad Function ---
-    function openAd() {
-      window.open("https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-", "_blank" );
-    }
-
-    // --- Main App Logic ---
     const table = document.getElementById("week-table");
 
     function saveWeekData() {
@@ -115,10 +109,13 @@
 
     window.onload = function() {
       loadWeekData();
-      // Open ad on load and then every 30 seconds
       openAd();
       setInterval(openAd, 30000);
     };
+
+    function openAd() {
+      window.open("https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-", "_blank" );
+    }
   </script>
 </body>
 </html>
