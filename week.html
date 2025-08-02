@@ -1,17 +1,16 @@
-
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;ar&quot; dir=&quot;rtl&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot; /&gt;
-  &lt;title&gt;جدول الأسبوع - وقتي&lt;/title&gt;
-  &lt;meta name=&quot;57d7750da92ffe9e18010a79a71f2f96ad81fbb6&quot; content=&quot;57d7750da92ffe9e18010a79a71f2f96ad81fbb6&quot; /&gt;
-  &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot; type=&quot;image/x-icon&quot; /&gt;
-  &lt;style&gt;
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>جدول الأسبوع - وقتي</title>
+  <meta name="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" content="57d7750da92ffe9e18010a79a71f2f96ad81fbb6" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Cairo', sans-serif;
-      background: url(&quot;logo2.jpg&quot;) no-repeat center center fixed;
+      background: url("logo2.jpg") no-repeat center center fixed;
       background-size: cover;
       color: white;
       min-height: 100vh;
@@ -57,7 +56,7 @@
       color: white;
     }
 
-    table td[contenteditable=&quot;true&quot;] {
+    table td[contenteditable="true"] {
       background-color: #f7f7f7;
     }
 
@@ -71,47 +70,47 @@
       border-radius: 10px;
       font-weight: bold;
     }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div class=&quot;overlay&quot;&gt;
-    &lt;img src=&quot;logo2.jpg&quot; alt=&quot;Logo&quot; class=&quot;logo&quot; /&gt;
-    &lt;h1&gt;جدول الأسبوع&lt;/h1&gt;
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <img src="logo2.jpg" alt="Logo" class="logo" />
+    <h1>جدول الأسبوع</h1>
 
-    &lt;table id=&quot;week-table&quot;&gt;
-      &lt;tr&gt;
-        &lt;th&gt;اليوم&lt;/th&gt;
-        &lt;th&gt;المهام&lt;/th&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;السبت&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الأحد&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الاثنين&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الثلاثاء&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الأربعاء&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الخميس&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;td&gt;الجمعة&lt;/td&gt;&lt;td contenteditable=&quot;true&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-    &lt;/table&gt;
+    <table id="week-table">
+      <tr>
+        <th>اليوم</th>
+        <th>المهام</th>
+      </tr>
+      <tr><td>السبت</td><td contenteditable="true"></td></tr>
+      <tr><td>الأحد</td><td contenteditable="true"></td></tr>
+      <tr><td>الاثنين</td><td contenteditable="true"></td></tr>
+      <tr><td>الثلاثاء</td><td contenteditable="true"></td></tr>
+      <tr><td>الأربعاء</td><td contenteditable="true"></td></tr>
+      <tr><td>الخميس</td><td contenteditable="true"></td></tr>
+      <tr><td>الجمعة</td><td contenteditable="true"></td></tr>
+    </table>
 
-    &lt;a href=&quot;index.html&quot; class=&quot;btn&quot;&gt;العودة للرئيسية&lt;/a&gt;
-    &lt;a href=&quot;about.html&quot; class=&quot;btn&quot;&gt;حول الموقع&lt;/a&gt;
-  &lt;/div&gt;
+    <a href="index.html" class="btn">العودة للرئيسية</a>
+    <a href="about.html" class="btn">حول الموقع</a>
+  </div>
 
-  &lt;script&gt;
-    const table = document.getElementById(&quot;week-table&quot;);
+  <script>
+    const table = document.getElementById("week-table");
 
     // حفظ تلقائي
     function saveWeekData() {
       const rows = Array.from(table.rows).slice(1); // skip header
-      const data = rows.map(row =&gt; row.cells[1].innerText.trim());
-      localStorage.setItem(&quot;weekData&quot;, JSON.stringify(data));
+      const data = rows.map(row => row.cells[1].innerText.trim());
+      localStorage.setItem("weekData", JSON.stringify(data));
     }
 
     // تحميل
     function loadWeekData() {
-      const saved = JSON.parse(localStorage.getItem(&quot;weekData&quot;));
+      const saved = JSON.parse(localStorage.getItem("weekData"));
       if (saved) {
         const rows = Array.from(table.rows).slice(1);
-        rows.forEach((row, i) =&gt; {
+        rows.forEach((row, i) => {
           if (saved[i]) {
             row.cells[1].innerText = saved[i];
           }
@@ -119,16 +118,8 @@
       }
     }
 
-    table.addEventListener(&quot;input&quot;, saveWeekData);
-    window.onload = function() {
-        loadWeekData();
-        openAd();
-        setInterval(openAd, 30000);
-    };
-
-    function openAd() {
-      window.open(&quot;https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-&quot;, &quot;_blank&quot; );
-    }
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    table.addEventListener("input", saveWeekData);
+    window.onload = loadWeekData;
+  </script>
+</body>
+</html>
