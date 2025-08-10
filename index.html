@@ -133,12 +133,6 @@
   </div>
   <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
   <script>
-    // --- Ad Function ---
-    function openAd() {
-      window.open("https://obese-pin.com/b.3/V/0iPs3ypVvPbPmUV/JUZ/DM0J2wNyTbUMywO/TLQ/4/L/T/Y/1mN/TZIa5kNdDjk-", "_blank" );
-    }
-
-    // --- Main App Logic ---
     if ("Notification" in window) Notification.requestPermission();
     const form = document.getElementById("task-form");
     const taskList = document.getElementById("task-list");
@@ -146,9 +140,6 @@
     window.onload = () => {
       const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
       tasks.forEach(addTaskToUI);
-      // Open ad on load and then every 30 seconds
-      openAd();
-      setInterval(openAd, 30000);
     };
 
     form.addEventListener("submit", function (e) {
