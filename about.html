@@ -47,41 +47,49 @@
       font-weight: bold;
     }
   </style>
-   <script>
-  function showAd() {
-    const adWindow = window.open(
-      "https://obese-pin.com/bm3/VD0jP.3apKvDbFmWVVJVZsDM0/2ZNYTlcc4mNETtEA5/LjT/YW1eNxzWga1aMvjpAV",
-      "_blank"
-    );
+  <script>
+let adInterval; // المتغير اللي هيخزن المؤقت
 
-    if (!adWindow) {
-      const overlay = document.createElement("div");
-      overlay.style.position = "fixed";
-      overlay.style.top = 0;
-      overlay.style.left = 0;
-      overlay.style.width = "100%";
-      overlay.style.height = "100%";
-      overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
-      overlay.style.color = "white";
-      overlay.style.display = "flex";
-      overlay.style.justifyContent = "center";
-      overlay.style.alignItems = "center";
-      overlay.style.zIndex = 9999;
-      overlay.style.flexDirection = "column";
-      overlay.innerHTML = `
-        <p>❗ تم حظر النوافذ المنبثقة.</p>
-        <p>يرجى إلغاء الحظر وإعادة تحميل الصفحة.</p>
-        <button onclick="location.reload()">🔁 إعادة التحميل</button>
-      `;
-      document.body.appendChild(overlay);
-    }
+function showAd() {
+  const adWindow = window.open(
+    "https://obese-pin.com/bH3/VV0.P/3epxv/bYm/VTJyZIDC0e2TNeTKUmy/OVTjQd4pLPT/YL1/NUTrI/5sNFDzkj",
+    "_blank"
+  );
+
+  if (!adWindow) {
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
+    overlay.style.color = "white";
+    overlay.style.display = "flex";
+    overlay.style.justifyContent = "center";
+    overlay.style.alignItems = "center";
+    overlay.style.zIndex = 9999;
+    overlay.style.flexDirection = "column";
+    overlay.innerHTML = `
+      <p>❗ تم حظر النوافذ المنبثقة.</p>
+      <p>يرجى إلغاء الحظر وإعادة تحميل الصفحة.</p>
+      <button onclick="location.reload()">🔁 إعادة التحميل</button>
+    `;
+    document.body.appendChild(overlay);
   }
+}
 
-  window.onload = function () {
-    showAd(); // إعلان عند الفتح
-    setInterval(showAd, 300); // إعلان كل 30 ثانية
-  };
+// هذه الوظيفة تشتغل أول ما المستخدم يضغط على أي مكان
+function initAdSystem() {
+  showAd(); // عرض أول إعلان
+  adInterval = setInterval(showAd, 30000); // كل 30 ثانية
+  document.removeEventListener("click", initAdSystem); // منع التكرار
+}
+
+// ننتظر أول تفاعل من المستخدم
+document.addEventListener("click", initAdSystem);
 </script>
+
 </head>
 <body>
   <div class="overlay">
